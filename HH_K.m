@@ -1,4 +1,4 @@
-%HODGKIN_HUXLEY Hodgkin-Huxley neuron model.
+%HODGKIN_HUXLEY Hodgkin-Huxley neuron model for potassium only
 %   V = HODGKIN_HUXLEY(T,I_EXT) simulates the membrane voltage V of
 %   the Hodgkin-Huxley neuron model in response to an external current
 %   I_EXT over time T. The lengths of T and I_EXT must be the same.
@@ -23,8 +23,8 @@ V  = zeros(1,length(t));
 V(1) = -10;
 
 % Alpha and beta variables:
-a = zeros(1,3);
-b = zeros(1,3);
+a = 0;
+b = 0;
 
 % Channel conductances (mmho/cm^2) [mho -> ohm^{-1}]
 gmax_K = 36; % gmax_Na = 120; g_R = 0.3;
@@ -38,9 +38,6 @@ x_K = [0];
 % Record individual current over time
 % Potassium
 I_K = [0];
-% Sodium
-I_Na = [0];
-CdV_dt = [0];
 
 % Perform numerical integration of the ODEs:
 for i=2:length(t),
@@ -51,10 +48,11 @@ for i=2:length(t),
     x_prev = x_K(i-1);
     x_K(i) = x_prev + dt*(a * (1 - x_prev) - b * x_prev);
     
-    g_K(end + 1) = gmax_K * x_K(i)^4;
+    g_K(i) = gmax_K * x_K(i)^4;
 
     % Update the ionic currents and membrane voltage:
 
-    I_K(end + 1) = g_K(i) * (V(i-1) - E);
+    I_K(i) = g_K(i) * (V(i-1) - E);
     V(i) = I_ext(i) / g_K(i) + E;
+    % V(i) = V(i-1) + dt*(I_ext(i)-I_K(i));
 end

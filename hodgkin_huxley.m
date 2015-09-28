@@ -8,7 +8,7 @@
 %   Authors: Lev Givon, Robert Turetsky and Konstantinos Psychas
 %   Copyright 2009-2010 Lev Givon and Robert Turetsky
 
-function [V, I_K, I_Na, CdV_dt] = hodgkin_huxley(t, I_ext)
+function [V, I_K, I_Na, CdV_dt, X] = hodgkin_huxley(t, I_ext)
 
 % Assume that the time is given in seconds, and convert it to
 % number of milliseconds:
@@ -40,7 +40,10 @@ gnmh(3) = g_R; %constant no need to be in a loop
 I_K = [0];
 % Sodium
 I_Na = [0];
+% Capacitive current
 CdV_dt = [0];
+% Record internal states
+X(1, :) = x;
 
 % Perform numerical integration of the ODEs:
 for i=2:length(t),
@@ -53,6 +56,7 @@ for i=2:length(t),
     b(3) = 1/(exp((30-V(i-1))/10)+1);
     
     x = x + dt*(a.*(1-x) - b.*x);
+    X(i, :) = x;
     
     gnmh(1) = g_K*x(1)^4;
     gnmh(2) = g_Na*x(2)^3*x(3);
@@ -61,9 +65,9 @@ for i=2:length(t),
     I = (gnmh.*(V(i-1)-E));  % nA
 
     % add to individual records
-    I_K(end + 1) = I(1);
-    I_Na(end + 1) = I(2);
-    CdV_dt(end + 1) = I_ext(i) - sum(I);
+    I_K(i) = I(1);
+    I_Na(i) = I(2);
+    CdV_dt(i) = I_ext(i) - sum(I);
 
     V(i) = V(i-1) + dt*(I_ext(i)-sum(I));
 end

@@ -4,7 +4,7 @@ function genplot(varargin)
 % 'xlabel' and 'ylabel' are optional
 % title can be either a string
 % or a cell array {string, Latex_title=0-2, Latex_xlabel, Latex_ylabel}
-% the 3 options are optional. Default 0, 2, 2.
+% the 3 options are optional. Default 0, 0, 0.
 % 0: no latex
 % 1: partial latex (need to type $$___$$ manually)
 % 2: full latex (assume enclosed by $$ $$)
@@ -16,8 +16,8 @@ y_label = '';
 ttext = '';
 
 latex_title = 0;
-latex_x = 2;
-latex_y = 2;
+latex_x = 0;
+latex_y = 0;
 
 tt = varargin{1};
 
