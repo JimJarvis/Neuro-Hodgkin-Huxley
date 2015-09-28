@@ -5,9 +5,6 @@
 %
 %   units: T(seconds), I_EXT(nA), V(mV)
 
-%   Authors: Lev Givon, Robert Turetsky and Konstantinos Psychas
-%   Copyright 2009-2010 Lev Givon and Robert Turetsky
-
 function [V, I_K, I_Na, CdV_dt, X] = hodgkin_huxley(t, I_ext)
 
 % Assume that the time is given in seconds, and convert it to

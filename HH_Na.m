@@ -5,9 +5,6 @@
 %
 %   units: T(seconds), I_EXT(nA), V(mV)
 
-%   Authors: Lev Givon, Robert Turetsky and Konstantinos Psychas
-%   Copyright 2009-2010 Lev Givon and Robert Turetsky
-
 function [V, I_Na, x_Na, g_Na] = HH_K(t, I_ext, X_stable)
 % X_stable: internal states from the joint model to stabilize this isolated model
 
