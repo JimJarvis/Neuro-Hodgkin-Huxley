@@ -3,6 +3,7 @@ Computational neuroscience: Hodgkin-Huxley neural spiking model
 
 - Numerically model the system of Hodgkin-Huxley neuron differential equations
   - [Project description](doc/hw1.pdf)
+  - [Project report](doc/report.pdf)
   - [BMEB W4020 class](http://www.bionet.ee.columbia.edu/courses/BMEB_W4020/2015)
   - [Wikipedia page](https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model)
 - Visualize relations between:
